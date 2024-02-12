@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // Здесь можно указать переменные окружения, например пути к компиляторам или версиям инструментов
-    }
-
     stages {
         stage('Checkout') {
             steps {
