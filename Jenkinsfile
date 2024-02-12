@@ -12,7 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Компиляция проекта с помощью MSBuild
-                bat 'msbuild MFCApplication1.sln /p:Configuration=Release /p:Platform="x86"'
+                bat '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\MSBuild\\Current\\Bin\\MSBuild.exe" MFCApplication1.sln /p:Configuration=Release /p:Platform="x86"'
             }
         }
 
@@ -37,7 +37,6 @@ pipeline {
             // Действия после неудачной попытки сборки
             echo 'Build failed.'
         }
-        // Пример использования 'always' для очистки рабочей директории
         always {
             // Добавьте сюда шаги, которые должны выполняться после каждого выполнения пайплайна
             echo 'This will always run regardless of build success.'
