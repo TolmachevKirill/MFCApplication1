@@ -34,10 +34,10 @@ pipeline {
             steps {
                 // Упаковка в MSI с использованием WiX
                 script {
-                    def exePath = 'Release\\TestMFCApp.exe'
+                    def exePath = "${WORKSPACE}\\Release\\TestMFCApp.exe"
                     // Использование установленных версий WiX Toolset
-                    bat '"C:\\Program Files (x86)\\WiX Toolset v3.14\\bin\\candle.exe" -arch x86 -dMyApplicationExePath=${exePath} installer.wxs -o installer.wixobj'
-                    bat '"C:\\Program Files (x86)\\WiX Toolset v3.14\\bin\\light.exe" installer.wixobj -o TestMFCApp.msi'
+                     bat "\"C:\\Program Files (x86)\\WiX Toolset v3.14\\bin\\candle.exe\" -arch x86 -dMyApplicationExePath=$exePath installer.wxs -o installer.wixobj"
+                    bat "\"C:\\Program Files (x86)\\WiX Toolset v3.14\\bin\\light.exe\" installer.wixobj -o TestMFCApp.msi"
                 }
             }
         }
