@@ -1,15 +1,16 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Product Id="fe0d514d-03db-4386-9c36-d80947491a73" Name="TestMFCApp" Version="1.0.0.0" Manufacturer="Test Company" Language="1033" UpgradeCode="95b70b9b-8db7-47e0-b3cf-d90652c7fac6">
         <Package InstallerVersion="200" Compressed="yes" Comments="Windows Installer Package" InstallScope="perMachine"/>
-        
+
         <Media Id="1" Cabinet="product.cab" EmbedCab="yes"/>
-        
+
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder">
+                <!-- Название папки должно соответствовать имени, которое вы хотите видеть в Program Files -->
                 <Directory Id="INSTALLFOLDER" Name="TestMFCApp">
                     <Component Id="ApplicationFiles" Guid="41e2e5d2-c76a-4704-9b55-242c56063048">
-                        <!-- Убедитесь, что путь к файлу TestMFCApp.exe корректен -->
-                        <File Id="AppExecutable" Source="C:\ProgramData\Jenkins\.jenkins\workspace\Test\Release\MFCApplication1.exe" KeyPath="yes"/>
+                        <!-- Убедитесь, что путь к файлу TestMFCApp.exe относителен и указывает на место в рабочей директории сборки -->
+                        <File Id="AppExecutable" Source="Release\MFCApplication1.exe" KeyPath="yes"/>
                     </Component>
                 </Directory>
             </Directory>
@@ -18,7 +19,7 @@
             </Directory>
             <Directory Id="DesktopFolder" Name="Desktop"/>
         </Directory>
-        
+
         <Feature Id="ProductFeature" Title="TestMFCApp" Level="1">
             <ComponentRef Id="ApplicationFiles"/>
             <ComponentRef Id="ApplicationShortcut"/>
@@ -29,7 +30,7 @@
             <Shortcut Id="ApplicationStartMenuShortcut"
                       Name="TestMFCApp"
                       Description="Test MFC Application"
-                      Target="[INSTALLFOLDER]TestMFCApp.exe"
+                      Target="[INSTALLFOLDER]MFCApplication1.exe"
                       WorkingDirectory="INSTALLFOLDER"/>
             <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
             <RegistryValue Root="HKCU" Key="Software\Test Company\TestMFCApp" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
@@ -39,7 +40,7 @@
             <Shortcut Id="ApplicationDesktopShortcut"
                       Name="TestMFCApp"
                       Description="Test MFC Application"
-                      Target="[INSTALLFOLDER]TestMFCApp.exe"
+                      Target="[INSTALLFOLDER]MFCApplication1.exe"
                       WorkingDirectory="INSTALLFOLDER"/>
             <RemoveFolder Id="DesktopFolder" On="uninstall"/>
             <RegistryValue Root="HKCU" Key="Software\Test Company\TestMFCApp\DesktopShortcut" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
