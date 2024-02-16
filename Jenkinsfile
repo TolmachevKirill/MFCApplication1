@@ -16,14 +16,29 @@ pipeline {
             }
         }
 
+        stage('Archive Build Artifacts') {
+            steps {
+                // Сохранение артефактов сборки (например, .exe файла) для последующего использования
+                archiveArtifacts artifacts: 'C:\\MFCApplication1\\bin\\Release\\*.exe', fingerprint: true
+            }
+        }
+
         stage('Package') {
             steps {
-                // Указание на скомпилированный .exe для создания MSI с помощью WiX
+                // Упаковка в MSI с использованием WiX
                 script {
                     def exePath = 'C:\\MFCApplication1\\bin\\Release\\TestMFCApp.exe'
-                    bat "candle -arch x86 -dMyApplicationExePath=${exePath} installer.wxs -o installer.wixobj"
-                    bat "light installer.wixobj -o TestMFCApp.msi"
+                    // Предполагается, что dotnet и WiX уже настроены для использования
+                    bat "dotnet tool run candle -arch x86 -dMyApplicationExePath=${exePath} installer.wxs -o installer.wixobj"
+                    bat "dotnet tool run light installer.wixobj -o TestMFCApp.msi"
                 }
+            }
+        }
+
+        stage('Save Package Artifacts') {
+            steps {
+                // Сохранение артефактов упаковки (MSI файла)
+                archiveArtifacts artifacts: '**/*.msi', fingerprint: true
             }
         }
     }
@@ -38,7 +53,7 @@ pipeline {
             echo 'Build failed.'
         }
         always {
-            // Добавьте сюда шаги, которые должны выполняться после каждого выполнения пайплайна
+            // Действия, которые должны выполняться после каждого выполнения пайплайна
             echo 'This will always run regardless of build success.'
         }
     }
