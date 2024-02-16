@@ -9,7 +9,7 @@
                 <Directory Id="INSTALLFOLDER" Name="TestMFCApp">
                     <Component Id="ApplicationFiles" Guid="41e2e5d2-c76a-4704-9b55-242c56063048">
                         <!-- Убедитесь, что путь к файлу TestMFCApp.exe корректен -->
-                        <File Id="AppExecutable" Source="bin\Release\TestMFCApp.exe" KeyPath="yes"/>
+                        <File Id="AppExecutable" Source="C:\ProgramData\Jenkins\.jenkins\workspace\Test\Release\MFCApplication1.exe" KeyPath="yes"/>
                     </Component>
                 </Directory>
             </Directory>
