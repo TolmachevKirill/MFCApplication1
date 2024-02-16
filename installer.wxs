@@ -1,6 +1,6 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Id="fe0d514d-03db-4386-9c36-d80947491a73" Name="TestMFCApp" Version="1.0.0.0" Manufacturer="Test Company" UpgradeCode="95b70b9b-8db7-47e0-b3cf-d90652c7fac6">
-        <Package InstallerVersion="200" Compressed="yes" Comments="Windows Installer Package"/>
+    <Product Id="fe0d514d-03db-4386-9c36-d80947491a73" Name="TestMFCApp" Version="1.0.0.0" Manufacturer="Test Company" Language="1033" UpgradeCode="95b70b9b-8db7-47e0-b3cf-d90652c7fac6">
+        <Package InstallerVersion="200" Compressed="yes" Comments="Windows Installer Package" InstallScope="perMachine"/>
         
         <Media Id="1" Cabinet="product.cab" EmbedCab="yes"/>
         
@@ -8,6 +8,7 @@
             <Directory Id="ProgramFilesFolder">
                 <Directory Id="INSTALLFOLDER" Name="TestMFCApp">
                     <Component Id="ApplicationFiles" Guid="41e2e5d2-c76a-4704-9b55-242c56063048">
+                        <!-- Убедитесь, что путь к файлу TestMFCApp.exe корректен -->
                         <File Id="AppExecutable" Source="bin\Release\TestMFCApp.exe" KeyPath="yes"/>
                     </Component>
                 </Directory>
