@@ -32,12 +32,12 @@ pipeline {
 
         stage('Package') {
             steps {
-                // Упаковка в MSI с использованием WiX (Предполагается, что путь к файлу .exe правильный после сборки)
+                // Упаковка в MSI с использованием WiX
                 script {
                     def exePath = 'Release\\TestMFCApp.exe'
-                    // Предполагается, что dotnet и WiX уже настроены для использования
-                    bat "dotnet tool run candle -arch x86 -dMyApplicationExePath=${exePath} installer.wxs -o installer.wixobj"
-                    bat "dotnet tool run light installer.wixobj -o TestMFCApp.msi"
+                    // Использование установленных версий WiX Toolset
+                    bat '"C:\\Program Files (x86)\\WiX Toolset v3.14\\bin\\candle.exe" -arch x86 -dMyApplicationExePath=${exePath} installer.wxs -o installer.wixobj'
+                    bat '"C:\\Program Files (x86)\\WiX Toolset v3.14\\bin\\light.exe" installer.wixobj -o TestMFCApp.msi'
                 }
             }
         }
