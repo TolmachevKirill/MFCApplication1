@@ -9,6 +9,13 @@ pipeline {
             }
         }
 
+        stage('Clean') {
+            steps {
+                // Очистка предыдущих артефактов сборки
+                bat '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\MSBuild\\Current\\Bin\\MSBuild.exe" MFCApplication1.sln /t:Clean /p:Configuration=Release /p:Platform="x86"'
+            }
+        }
+
         stage('Build') {
             steps {
                 // Компиляция проекта с помощью MSBuild
@@ -19,15 +26,15 @@ pipeline {
         stage('Archive Build Artifacts') {
             steps {
                 // Сохранение артефактов сборки (например, .exe файла) для последующего использования
-                archiveArtifacts artifacts: 'C:\\MFCApplication1\\bin\\Release\\*.exe', fingerprint: true
+                archiveArtifacts artifacts: '**/Release/*.exe', fingerprint: true
             }
         }
 
         stage('Package') {
             steps {
-                // Упаковка в MSI с использованием WiX
+                // Упаковка в MSI с использованием WiX (Предполагается, что путь к файлу .exe правильный после сборки)
                 script {
-                    def exePath = 'C:\\MFCApplication1\\bin\\Release\\TestMFCApp.exe'
+                    def exePath = 'Release\\TestMFCApp.exe'
                     // Предполагается, что dotnet и WiX уже настроены для использования
                     bat "dotnet tool run candle -arch x86 -dMyApplicationExePath=${exePath} installer.wxs -o installer.wixobj"
                     bat "dotnet tool run light installer.wixobj -o TestMFCApp.msi"
